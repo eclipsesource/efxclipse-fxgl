@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import com.sun.javafx.logging.PulseLogger;
 
+import at.bestsolution.fxgl.DX11Renderer;
 import at.bestsolution.fxgl.DXSurface;
 import at.bestsolution.fxgl.DXUtils;
 import at.bestsolution.fxgl.GLCanvas;
@@ -23,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
@@ -62,9 +64,11 @@ public class SimpleDXSurface extends Application {
 		update.setOnAction(e -> text.setText("Handle: " + canvas.getNativeHandle()));
 		BorderPane top = new BorderPane();
 		top.setCenter(text);
-		top.setRight(update);
 		
-		
+		Button launch = new Button("DX11Renderer");
+		launch.setOnAction(e -> DX11Renderer.Run(canvas.getNativeHandle()));
+		HBox btns = new HBox(update, launch);
+		top.setRight(btns);
 		
 		root.setTop(top);
 		root.setCenter(canvas);
@@ -115,6 +119,7 @@ public class SimpleDXSurface extends Application {
 	public static void main(String[] args) {
 		// force load library
 		System.loadLibrary("uberfx_x64");
+		
 		//System.setProperty("java.library.path", "C:\\projects\\fxGL\\at.bestsolution.fxgl\\os\\win32\\x86_64");
 		
 		launch(args);
