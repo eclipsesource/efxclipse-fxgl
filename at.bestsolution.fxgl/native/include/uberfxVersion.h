@@ -1,0 +1,8 @@
+#ifndef __UBERFX_VERSION_H__
+#define __UBERFX_VERSION_H__
+
+#define UBERJAVA_VERSION_MAJOR 5
+#define UBERJAVA_VERSION_MINOR 3
+
+#endif // __UBERFX_VERSION_H__
+
