@@ -1,16 +1,15 @@
 package at.bestsolution.fxgl;
 
-public class DX11Renderer {
+public class DX9Renderer {
 
 	private static native void nRun(long sharedHandle);
 	
 	public static void Run(long sharedHandle) {
-		System.err.println("DX11Renderer.Run(" + sharedHandle + ")");
-		System.loadLibrary("DX11Renderer");
+		System.loadLibrary("DX9Renderer");
 		Thread n = new Thread(() -> {
 			nRun(sharedHandle);
 		});
-		n.setName("DX11Renderer");
+		n.setName("DX9Renderer");
 		n.start();
 	}
 	

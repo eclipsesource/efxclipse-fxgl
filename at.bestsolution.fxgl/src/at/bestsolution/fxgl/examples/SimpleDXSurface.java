@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import com.sun.javafx.logging.PulseLogger;
 
 import at.bestsolution.fxgl.DX11Renderer;
+import at.bestsolution.fxgl.DX9Renderer;
 import at.bestsolution.fxgl.DXSurface;
 import at.bestsolution.fxgl.DXUtils;
 import at.bestsolution.fxgl.GLCanvas;
@@ -67,7 +68,9 @@ public class SimpleDXSurface extends Application {
 		
 		Button launch = new Button("DX11Renderer");
 		launch.setOnAction(e -> DX11Renderer.Run(canvas.getNativeHandle()));
-		HBox btns = new HBox(update, launch);
+		Button launch2 = new Button("DX9Renderer");
+		launch2.setOnAction(e -> DX9Renderer.Run(canvas.getNativeHandle()));
+		HBox btns = new HBox(update, launch, launch2);
 		top.setRight(btns);
 		
 		root.setTop(top);
@@ -120,7 +123,16 @@ public class SimpleDXSurface extends Application {
 		// force load library
 		System.loadLibrary("uberfx_x64");
 		
+		System.loadLibrary("DX9Renderer");
+		
 		//System.setProperty("java.library.path", "C:\\projects\\fxGL\\at.bestsolution.fxgl\\os\\win32\\x86_64");
+//		
+//		try {
+//			Thread.sleep(10_000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		launch(args);
 	}
