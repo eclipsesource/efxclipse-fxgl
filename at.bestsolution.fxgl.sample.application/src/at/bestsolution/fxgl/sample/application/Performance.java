@@ -1,4 +1,4 @@
-package at.bestsolution.fxgl.sample.renderer.objrenderer.demos;
+package at.bestsolution.fxgl.sample.application;
 import com.sun.javafx.perf.PerformanceTracker;
 
 import javafx.animation.AnimationTimer;

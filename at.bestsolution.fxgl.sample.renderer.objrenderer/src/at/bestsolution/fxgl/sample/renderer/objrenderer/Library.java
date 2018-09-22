@@ -20,6 +20,14 @@ public class Library {
 	public static void require() {
 		at.bestsolution.fxgl.sample.renderer.Library.require();
 		NativeHelper.loadLibrary(LIB());
+		
+		NativeHelper.requireResource(Library.class.getResource("/vertex.glsl"));
+		NativeHelper.requireResource(Library.class.getResource("/fragment.glsl"));
+		NativeHelper.requireResource(Library.class.getResource("/Chest.obj"));
+		NativeHelper.requireResource(Library.class.getResource("/Chest.mtl"));
+		NativeHelper.requireResource(Library.class.getResource("/Chest-diffuse.tga"));
+		NativeHelper.requireResource(Library.class.getResource("/Chest-normal.tga"));
+		NativeHelper.requireResource(Library.class.getResource("/Chest-specular.tga"));
 	}
 	
 	

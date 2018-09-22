@@ -1,6 +1,5 @@
 package at.bestsolution.fxgl;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -15,31 +14,33 @@ public class NativeHelper {
 
 	private static Set<URL> loaded = new HashSet<>();
 	
-	public static void loadLibrary(URL resource) {
-		if (loaded.contains(resource)) {
-			System.err.println("NativeHelper: already loaded " + resource);
-			return;
-		}
-		System.err.println("NativeHelper: loading " + resource);
+	private static Path extractResource(URL resource) {
 		Path target = Paths.get("").toAbsolutePath();
-//		System.err.println("NativeHelper: target = " + target);
-	
-		Path libFileName = Paths.get(resource.getFile()).getFileName();
-		
-		//String libFileName = resource.getFile();
-		System.err.println("              libFileName = " + libFileName);
-		
-		Path lib = target.resolve(libFileName);
+		Path fileName = Paths.get(resource.getFile()).getFileName();
+		Path extracted = target.resolve(fileName);
 		try (InputStream in = resource.openStream()) {
-			Files.copy(in, lib, StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(in, extracted, StandardCopyOption.REPLACE_EXISTING);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		System.err.println("              " + lib.toString());
-		
+		return extracted;
+	}
+	
+	public static void loadLibrary(URL resource) {
+		if (loaded.contains(resource)) {
+			return;
+		}
+		Path lib = extractResource(resource);
 		System.load(lib.toString());
+		NativeHelper.loaded.add(resource);
+	}
+	
+	public static void requireResource(URL resource) {
+		if (loaded.contains(resource)) {
+			return ;
+		}
+		extractResource(resource);
 		NativeHelper.loaded.add(resource);
 	}
 	

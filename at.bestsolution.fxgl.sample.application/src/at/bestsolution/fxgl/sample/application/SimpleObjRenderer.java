@@ -1,4 +1,4 @@
-package at.bestsolution.fxgl.sample.renderer.objrenderer.demos;
+package at.bestsolution.fxgl.sample.application;
 
 import at.bestsolution.fxgl.es2.GLSurface;
 import at.bestsolution.fxgl.sample.renderer.objrenderer.ObjRenderer;
