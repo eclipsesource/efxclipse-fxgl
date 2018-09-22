@@ -1,0 +1,52 @@
+.combo-box-base,
+.combo-box .combo-box-popup .list-cell,
+.button{
+    -fx-border-color: transparent;
+    -fx-border-width: 1;
+    -fx-border-insets: 1;
+    -fx-background-radius: 0;
+    -fx-background-color: dodgerblue;
+    -fx-font-family:"Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 1em; /* 12 */
+    -fx-text-fill: white;
+}
+.combo-box-base:focused,
+.combo-box .combo-box-popup .list-cell:focused,
+.button:focused {
+    -fx-border-color: transparent, black;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 2);
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+.combo-box-base:pressed,
+.combo-box .combo-box-popup .list-cell:hover,
+.combo-box .combo-box-popup .list-cell:pressed,
+.combo-box .combo-box-popup .list-cell:selected,
+.button:pressed {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.combo-box-base .arrow-button .arrow {
+	-fx-background-color: white;
+}
+.combo-box .list-cell {
+	-fx-text-fill: white;
+}
+
+.label {
+	-fx-text-fill: dodgerblue;
+}
+
+/* 
+.combo-box-base {
+    -fx-background-color: dodgerblue;
+    -fx-text-fill: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+*/
+.split-pane .split-pane-divider {
+	-fx-background-color: dodgerblue;
+}
