@@ -48,11 +48,11 @@
 									<listOptionValue builtIn="false" value="fxgl_sample_renderer"/>
 								</option>
 								<option id="gnu.cpp.link.option.paths.835618345" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/at.bestsolution.fxgl.native.linux/Debug}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/at.bestsolution.fxgl.native/Debug}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/at.bestsolution.fxgl.glcommon.native}/Debug&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/at.bestsolution.fxgl.sample.renderer.native}/Debug&quot;"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.1086895001" superClass="gnu.cpp.link.option.flags" useByScannerDiscovery="false" value="-Wl,-rpath,\$$ORIGIN" valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.1086895001" name="Linker flags" superClass="gnu.cpp.link.option.flags" useByScannerDiscovery="false" value="-Wl,-rpath,\$$ORIGIN" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1340948872" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

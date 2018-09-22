@@ -1,7 +1,7 @@
 #include "ObjRenderer.h"
 #include <GL/glew.h>
 
-#include "../at.bestsolution.fxgl.native.linux/include/Texture.h"
+#include "../at.bestsolution.fxgl.native/include/Texture.h"
 
 #include "../at.bestsolution.fxgl.glcommon.native/GLContext.h"
 

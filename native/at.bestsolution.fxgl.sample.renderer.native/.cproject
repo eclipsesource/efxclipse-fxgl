@@ -42,7 +42,7 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1629065979" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.paths.1026725100" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
-									<listOptionValue builtIn="false" value="../../at.bestsolution.fxgl.native.linux/Debug"/>
+									<listOptionValue builtIn="false" value="../../at.bestsolution.fxgl.native/Debug"/>
 								</option>
 								<option id="gnu.cpp.link.option.libs.531183041" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="fxgl"/>

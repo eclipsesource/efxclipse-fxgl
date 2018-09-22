@@ -1,5 +1,5 @@
 #include "Renderer.h"
-#include "../at.bestsolution.fxgl.native.linux/include/GLSurface.h"
+#include "../at.bestsolution.fxgl.native/include/GLSurface.h"
 
 #include "jni.h"
 
