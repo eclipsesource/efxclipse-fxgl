@@ -1,10 +1,3 @@
-/*
- * jni_helper.h
- *
- *  Created on: 18 Sep 2018
- *      Author: ccaks
- */
-
 #ifndef INCLUDE_JNI_HELPER_H_
 #define INCLUDE_JNI_HELPER_H_
 

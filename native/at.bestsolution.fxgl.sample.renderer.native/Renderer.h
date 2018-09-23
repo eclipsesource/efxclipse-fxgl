@@ -4,7 +4,7 @@
 #include <thread>
 #include <map>
 #include <chrono>
-#include "../at.bestsolution.fxgl.native/include/GLSurface.h"
+#include "../at.bestsolution.fxgl.native/GLSurface.h"
 
 namespace at {
 namespace bestsolution {

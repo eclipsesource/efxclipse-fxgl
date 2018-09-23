@@ -3,7 +3,7 @@
 
 #include <string>
 #include <mutex>
-#include "../at.bestsolution.fxgl.native/include/ScrollEvent.h"
+#include "../at.bestsolution.fxgl.native/ScrollEvent.h"
 #include "../at.bestsolution.fxgl.glcommon.native/GLContext.h"
 #include "../at.bestsolution.fxgl.sample.renderer.native/Renderer.h"
 

@@ -1,13 +1,13 @@
 #include "ObjRenderer.h"
 #include <GL/glew.h>
 
-#include "../at.bestsolution.fxgl.native/include/Texture.h"
+#include "../at.bestsolution.fxgl.native/Texture.h"
 
 #include "../at.bestsolution.fxgl.glcommon.native/GLContext.h"
 
 #include <iostream>
 
-#include "jni.h"
+#include "../include/jni.h"
 
 #include "obj-master/etc/GLFundamentals.hpp"
 using namespace gl;

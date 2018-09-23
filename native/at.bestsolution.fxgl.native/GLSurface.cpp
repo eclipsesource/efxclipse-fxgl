@@ -14,9 +14,7 @@ using namespace std;
 
 #include <string.h> // for strdup
 
-
-#include "../include/SharedMemory.h"
-#include "../include/GLSurface.h"
+#include "GLSurface.h"
 
 using namespace at::bestsolution::fxgl;
 using namespace events;

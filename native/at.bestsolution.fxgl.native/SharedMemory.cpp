@@ -4,8 +4,9 @@
 #include <iostream>
 
 #include "../include/jni.h"
-#include "../include/Texture.h"
-#include "../include/SharedMemory.h"
+
+#include "Texture.h"
+#include "SharedMemory.h"
 
 using namespace std;
 using namespace at::bestsolution::fxgl;

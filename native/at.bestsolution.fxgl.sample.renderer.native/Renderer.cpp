@@ -1,7 +1,7 @@
 #include "Renderer.h"
-#include "../at.bestsolution.fxgl.native/include/GLSurface.h"
+#include "../at.bestsolution.fxgl.native/GLSurface.h"
 
-#include "jni.h"
+#include "../include/jni.h"
 
 #include <thread>
 #include <functional>

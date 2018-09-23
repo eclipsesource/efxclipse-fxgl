@@ -1,6 +1,6 @@
 #include "../include/jni.h"
 #include "../include/jni_helper.h"
-#include "../include/GLSurface.h"
+#include "GLSurface.h"
 
 #include <iostream>
 

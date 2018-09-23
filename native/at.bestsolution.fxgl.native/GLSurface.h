@@ -8,7 +8,7 @@
 #include "MouseEvent.h"
 #include "ScrollEvent.h"
 
-#include "jni.h"
+#include "../include/jni.h"
 
 #include "Texture.h"
 
