@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
+@SuppressWarnings({ "restriction", "deprecation" })
 public class GLSurface extends Node {
 
 	private long surfaceId;
@@ -26,12 +27,12 @@ public class GLSurface extends Node {
 		
 		surfaceId = GLSurfaceAPI.createGLSurface(this);
 		
-		addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-			System.err.println("Java mouse click event");
-		});
+//		addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+//			System.err.println("Java mouse click event");
+//		});
 		
 		addEventHandler(ScrollEvent.SCROLL, e -> {
-			System.err.println("Java scroll event " + e);
+//			System.err.println("Java scroll event " + e);
 			GLSurfaceAPI.ScrollEvent event = new GLSurfaceAPI.ScrollEvent();
 			event.deltaX = (float) e.getDeltaX();
 			event.deltaY = (float) e.getDeltaY();
@@ -131,6 +132,8 @@ public class GLSurface extends Node {
             
             NGGLSurface peer = impl_getPeer();
             peer.setWidth((float) value);
+            
+            GLSurfaceAPI.fireSizeChanged(surfaceId);
         }
 	}
 	private double _width;
@@ -183,6 +186,8 @@ public class GLSurface extends Node {
 	            
 	            NGGLSurface peer = impl_getPeer();
 	            peer.setHeight((float) value);
+	            
+	            GLSurfaceAPI.fireSizeChanged(surfaceId);
 	        }
 	    }
 	private double _height;
@@ -212,72 +217,30 @@ public class GLSurface extends Node {
 		public int height;
 	}
 	
-	private long frameNumber = 0;
-	private FrameReport frameReport;
+	private Texture toTexture(Tex tex) {
+		Texture t = new Texture();
+		t.textureId = tex.textureId;
+		t.width = tex.w;
+		t.height = tex.h;
+		return t;
+	}
 	
 	public Texture GetNextTexture() {
 //		System.err.println("java GetNextTexture()");
-		frameReport = new FrameReport();
-		frameReport.number = frameNumber++;
-		frameReport.getNextTexture -= System.nanoTime();
-		try {
-			NGGLSurface peer = impl_getPeer();
-			
-			Tex next = peer.GetNextTex(frameReport);
-			
-			Texture t = new Texture();
-			t.textureId = next.textureId;
-			t.width = next.fxTex.getContentWidth();
-			t.height = next.fxTex.getContentHeight();
-			
-			return t;
-		}
-		finally {
-			frameReport.getNextTexture += System.nanoTime();
-			
-			frameReport.nativeTime = -System.nanoTime();
-		}
-	}
-	
-	public static class FrameReport {
-		public long number;
-		public long getNextTexture;
-		public long swapTexture;
-		public long nativeTime;
-		public long swapTextureQuantum;
-		public long getNextTextureQuantum;
-		
-		@Override
-		public String toString() {
-			return String.format("Frame %d nextTex: %5.3fms(q: %5.3fms) native: %5.3fms swap: %5.3fms(q: %5.3fms)", number, getNextTexture/1_000_000d, getNextTextureQuantum/1_000_000d, nativeTime/1_000_000d, swapTexture/1_000_000d, swapTextureQuantum/1_000_000d);
-		}
+		NGGLSurface peer = impl_getPeer();
+		Tex next = peer.GetNextTex();
+		return toTexture(next);
 	}
 	
 	public void SwapTexture() {
-		
-		if (frameReport != null) {
-			frameReport.nativeTime += System.nanoTime();
-			frameReport.swapTexture = -System.nanoTime();
-		}
 //		System.err.println("java SwapTexture()");
-		
 		NGGLSurface peer = impl_getPeer();
-		peer.SwapTex(frameReport);
+		peer.SwapTex();
 		
 		Platform.runLater(()-> {
 			impl_markDirty(DirtyBits.NODE_CONTENTS);
 			impl_markDirty(DirtyBits.NODE_GEOMETRY);
 		});
-		
-		
-		if (frameReport != null) {
-			frameReport.swapTexture += System.nanoTime();
-		}
-		float curFps = GLSurfaceAPI.getFPS(surfaceId);
-		Platform.runLater(() -> fps.set(curFps));
-		if (frameReport != null) {
-			if (frameReport.number % 1000 == 0) System.err.println(frameReport);
-		}
 	}
 	
 	@Deprecated
@@ -296,17 +259,6 @@ public class GLSurface extends Node {
 			peer.markDirty();
 		}
 		
-	}
-
-	
-	
-	private ReadOnlyDoubleWrapper fps = new ReadOnlyDoubleWrapper(this, "fps", 0);
-	public ReadOnlyDoubleProperty fpsProperty() {
-		return fps.getReadOnlyProperty();
-	}
-	
-	public double getFps() {
-		return fps.get();
 	}
 	
 }

@@ -33,6 +33,7 @@ protected:
 	virtual bool InitializeResources();
 	virtual void DisposeResources();
 
+	void onSizeChanged();
 	void onScroll(events::ScrollEvent event);
 
 

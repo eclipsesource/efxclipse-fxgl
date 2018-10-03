@@ -76,7 +76,6 @@ void ObjRenderer::RenderFrame(int width, int height) {
 
 			newObject = false;
 		}
-
 		obj_render(object);
 	}
 	mtxObject.unlock();
@@ -88,8 +87,12 @@ void ObjRenderer::RenderFrame(int width, int height) {
 
 }
 
+void ObjRenderer::onSizeChanged() {
+	//cerr << "onSizeChanged" << endl;
+}
+
 void ObjRenderer::onScroll(events::ScrollEvent event) {
-	cerr << "onScroll " << event.deltaY << endl;
+	//cerr << "onScroll " << event.deltaY << endl;
 	scaleFactor += event.deltaY / 1000;
 }
 
@@ -115,6 +118,7 @@ bool ObjRenderer::InitializeResources() {
 
 	using namespace std::placeholders; // for `_1`
 	renderTarget->SubscribeScrollEvent(std::bind(&ObjRenderer::onScroll, this, _1));
+	renderTarget->SubscribeSizeChanged(std::bind(&ObjRenderer::onSizeChanged, this));
 
 
 	long sharedHandle = renderTarget->GetContextHandle();
@@ -164,6 +168,8 @@ bool ObjRenderer::InitializeResources() {
 	 cerr << " created depthTex " << depthTex << endl;
 
 	 cerr << " finished initialization." << endl;
+
+	 glEnable(GL_DEBUG_OUTPUT);
 
 	 return true;
 }

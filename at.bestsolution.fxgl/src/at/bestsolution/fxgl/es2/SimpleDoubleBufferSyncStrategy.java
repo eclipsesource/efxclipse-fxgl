@@ -3,10 +3,9 @@ package at.bestsolution.fxgl.es2;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 
-import at.bestsolution.fxgl.es2.GLSurface.FrameReport;
 import at.bestsolution.fxgl.es2.NGGLSurface.Tex;
 
-public class SimpleDoubleBufferSyncStrategy extends AQuantumSyncStrategy {
+public class SimpleDoubleBufferSyncStrategy implements ISyncStrategy {
 
 	private class DoubleBuffer {
 		Tex foreground;
@@ -16,12 +15,12 @@ public class SimpleDoubleBufferSyncStrategy extends AQuantumSyncStrategy {
 	private AtomicReference<DoubleBuffer> buffer = new AtomicReference<>();
 	
 	@Override
-	public Tex GetNextTex(int w, int h, BiFunction<Integer, Integer, Tex> createTex, FrameReport report) {
+	public Tex GetNextTex(int w, int h, BiFunction<Integer, Integer, Tex> createTex) {
 		return buffer.get().background;
 	}
 
 	@Override
-	public void SwapTex(FrameReport report) {
+	public void SwapTex() {
 		buffer.updateAndGet(buf -> {
 			DoubleBuffer newBuf = new DoubleBuffer();
 			newBuf.foreground = buf.background;
@@ -45,19 +44,12 @@ public class SimpleDoubleBufferSyncStrategy extends AQuantumSyncStrategy {
 	}
 	@Override
 	public void afterRenderContent(int w, int h, BiFunction<Integer, Integer, Tex> createTex) {
-		
 		buffer.updateAndGet(buf -> {
 			DoubleBuffer newBuf = new DoubleBuffer();
+			// keep foreground
 			newBuf.foreground = buf.foreground;
 			
-			if (checkSize(w, h, buf.background)) {
-				newBuf.background = buf.background;
-			}
-			else {
-				System.err.println("recreating background tex");
-				newBuf.background = createTex.apply(w, h);
-			}
-			
+			// prepare background
 			newBuf.background = checkSize(w, h, buf.background) ? buf.background : createTex.apply(w, h);
 			return newBuf;
 		});

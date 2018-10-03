@@ -1,45 +1,27 @@
 package at.bestsolution.fxgl.es2;
 
-import java.lang.reflect.Method;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.function.Supplier;
-
-import com.sun.javafx.font.FontStrike;
-import com.sun.javafx.scene.text.GlyphList;
-import com.sun.javafx.sg.prism.NGGroup;
 import com.sun.javafx.sg.prism.NGNode;
-import com.sun.javafx.text.TextRun;
 import com.sun.prism.Graphics;
 import com.sun.prism.Image;
 import com.sun.prism.PixelFormat;
-import com.sun.prism.RTTexture;
 import com.sun.prism.ResourceFactory;
 import com.sun.prism.Texture;
-import com.sun.prism.paint.Color;
 
-import at.bestsolution.fxgl.es2.GLSurface.FrameReport;
 import at.bestsolution.fxgl.internal.GLSurfaceAPI;
-import at.bestsolution.fxgl.internal.SharedMemory;
 
+@SuppressWarnings({"restriction"})
 public class NGGLSurface extends NGNode {
 
-//	private ISyncStrategy syncStrategy = new QuantumRendererSyncStrategy();
 	private ISyncStrategy syncStrategy = new SimpleDoubleBufferSyncStrategy();
-//	private ISyncStrategy syncStrategy = new SharedMemoryDoubleBufferSyncStrategy();
 	
 	private ResourceFactory resourceFactory;
 	
-	class Tex {
+	static class Tex {
 		Texture fxTex;
 		int textureId;
 		int w;
 		int h;
 	}
-	
-	private Tex renderTex;
-	private Tex nextTex;
-	
 	
 	private GLSurface node;
 	
@@ -99,12 +81,12 @@ public class NGGLSurface extends NGNode {
 		return Math.max(1, (int) Math.ceil(th));
 	}
 
-	public Tex GetNextTex(FrameReport frameReport) {
-		return syncStrategy.GetNextTex(getTexWidth(), getTexHeight(), this::createTex, frameReport);
+	public Tex GetNextTex() {
+		return syncStrategy.GetNextTex(getTexWidth(), getTexHeight(), this::createTex);
 	}
 	
-	public void SwapTex(FrameReport frameReport) {
-		syncStrategy.SwapTex(frameReport);
+	public void SwapTex() {
+		syncStrategy.SwapTex();
 	}
 	
 	@Override

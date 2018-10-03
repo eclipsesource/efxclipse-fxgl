@@ -2,16 +2,10 @@ package at.bestsolution.fxgl.sample.application;
 import com.sun.javafx.perf.PerformanceTracker;
 
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
+@SuppressWarnings("restriction")
 public class Performance {
 
 	private final PerformanceTracker tracker;

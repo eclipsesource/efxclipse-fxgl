@@ -73,7 +73,7 @@ public class MultiObjectRenderer extends Application {
 //	                }
 //	            }
 //	        });
-			frameRate.getItems().addAll(30d, 60d, 100d, 200d);
+			frameRate.getItems().addAll(1d, 5d, 10d, 30d, 60d, 100d, 200d);
 			frameRate.setValue(60d);
 			frameRate.valueProperty().addListener((x, o, n) -> {
 				renderer.setTargetFrameRate(n);
@@ -121,8 +121,8 @@ public class MultiObjectRenderer extends Application {
 		hSplit.setStyle("-fx-background-color: transparent");
 		hSplit.setOrientation(Orientation.HORIZONTAL);
 		
-		int numHorizontal = 10;
-		int numVertical = 10;
+		int numHorizontal = 4;
+		int numVertical = 4;
 		
 		double vOne = 1.0d / numVertical;
 		double[] vPositions = IntStream.range(1, numVertical).mapToDouble(i -> i * vOne).toArray();
@@ -166,10 +166,17 @@ public class MultiObjectRenderer extends Application {
 		primaryStage.setScene(scen);
 		primaryStage.show();
 		
+		HBox spacer = new HBox();
+		HBox.setHgrow(spacer, Priority.ALWAYS);
+		tb.getItems().add(spacer);
+		
+		Label fps = new Label();
+		tb.getItems().add(fps);
+		
 		fxPerformance = new Performance(scen);
-		primaryStage.titleProperty().bind(
+		fps.textProperty().bind(
 				Bindings.concat(
-						"MultiObjectRenderer (",
+						"JavaFx (",
 						fxPerformance.avgFpsProperty().asString("avg: %5.2ffps"),
 						", ",
 						fxPerformance.instantFpsProperty().asString("now: %5.2ffps"),

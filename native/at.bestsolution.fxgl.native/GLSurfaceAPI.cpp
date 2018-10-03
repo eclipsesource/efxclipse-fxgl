@@ -8,29 +8,27 @@ using namespace std;
 using namespace at::bestsolution::fxgl;
 using namespace events;
 
+extern "C" JNIEXPORT void JNICALL Java_at_bestsolution_fxgl_internal_GLSurfaceAPI_nInitialize(JNIEnv *env, jclass cls) {
+	cerr << "nInitialize(()" << endl;
+	JavaVM* jvm;
+	env->GetJavaVM(&jvm);
+	internal::InternalGLSurface::Initialize(jvm);
+}
+
 
 extern "C" JNIEXPORT jlong JNICALL Java_at_bestsolution_fxgl_internal_GLSurfaceAPI_nCreateGLSurface(JNIEnv *env, jclass cls, jobject surfaceObj)
 {
-	GLSurface::Initialize(); // for now we make here sure that the system is initialised
-	JavaVM* jvm;
-	env->GetJavaVM(&jvm);
-	cerr << "got javavm " << jvm << endl << flush;
-	return GLSurface::RegisterSurface(jvm, surfaceObj);
+	return internal::InternalGLSurface::RegisterSurface(surfaceObj);
 }
 
 extern "C" JNIEXPORT void JNICALL Java_at_bestsolution_fxgl_internal_GLSurfaceAPI_nDisposeGLSurface(JNIEnv *env, jclass cls, jlong surfaceId)
 {
-	GLSurface::DisposeSurface(surfaceId);
+	internal::InternalGLSurface::DestroySurface(surfaceId);
 }
 
 extern "C" JNIEXPORT void JNICALL Java_at_bestsolution_fxgl_internal_GLSurfaceAPI_nFireSizeChanged(JNIEnv *env, jclass cls, jlong surfaceId)
 {
 	GLSurface::GetSurface(surfaceId)->FireSizeChanged();
-}
-
-extern "C" JNIEXPORT jfloat JNICALL Java_at_bestsolution_fxgl_internal_GLSurfaceAPI_nGetFPS(JNIEnv *env, jclass cls, jlong surfaceId)
-{
-	return (jfloat) GLSurface::GetSurface(surfaceId)->GetFPS();
 }
 
 extern "C" JNIEXPORT void JNICALL Java_at_bestsolution_fxgl_internal_GLSurfaceAPI_nFireScrollEvent(JNIEnv *env, jclass cls, jlong surfaceId, jobject event)
