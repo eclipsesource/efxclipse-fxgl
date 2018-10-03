@@ -19,6 +19,9 @@ Every java project has a corresponding native code project in `native/${project}
 * **at.bestsolution.fxgl.sample.application**  
  The javafx examples
 
+### Requirements
+
+Oracle Java 8 JDK
 
 ### Basic Usage
 
