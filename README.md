@@ -23,6 +23,29 @@ Every java project has a corresponding native code project in `native/${project}
 
 Oracle Java 8 JDK
 
+
+### Sample Requirements
+
+ * libGLX.so.0
+ * libX11.so.6
+ * libGLEW.so.2.0
+ * libGL.so.1
+
+### Java Native Library behavior
+
+For now the java code extracts the native libs it bundles into the current working directory to allow them to link together.  
+The samples also extract their resources (shaders, images, obj..) there.  
+
+### Known Limitations / issues
+
+ * The checked in `libfxgl_sample_glcommon.so` is linked against `libGLEW.so.2.0`  
+ On some system only libGLEW.so.2.2 is available which causes the application to fail  
+ Workaround: add a symlink in your workingdir to `libGLEW.so.2.2` and name it `libGLEW.so.2.0`
+
+ * The renderer sample does not work with Intel Cards  
+ When starting a renderer on a intel card the application dies with a message similar to `i965: Failed to submit batchbuffer: No such file or directory`
+
+
 ### Basic Usage
 
 #### Java Side
@@ -90,8 +113,4 @@ With this you are ready to go:
 
 ```
 
-
-#### Notes on the linker
-
-At the moment the bridge jar (`at.bestsolution.fxgl.jar`) extracts its native code (`libfxgl.so`) to the current working directory. Maybe you need to put it also next to your shared objects so they can link against it.
 
