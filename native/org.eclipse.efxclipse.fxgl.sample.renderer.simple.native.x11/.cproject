@@ -5,8 +5,8 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.exe.debug.1923168422" moduleId="org.eclipse.cdt.core.settings" name="Debug">
 				<externalSettings>
 					<externalSetting>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/at.bestsolution.fxgl.sample.renderer.simple.native"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/at.bestsolution.fxgl.sample.renderer.simple.native/Debug"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/org.eclipse.efxclipse.fxgl.sample.renderer.simple.native.x11"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/org.eclipse.efxclipse.fxgl.sample.renderer.simple.native.x11/Debug"/>
 						<entry flags="RESOLVED" kind="libraryFile" name="fxgl_sample_renderer_simple" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
@@ -24,7 +24,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.exe.debug.1923168422." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.exe.debug.505765943" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.exe.debug">
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.debug.319245991" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.debug"/>
-							<builder buildPath="${workspace_loc:/at.bestsolution.fxgl.sample.renderer.simple.native}/Debug" id="cdt.managedbuild.target.gnu.builder.exe.debug.1951039919" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.exe.debug"/>
+							<builder buildPath="${workspace_loc:/org.eclipse.efxclipse.fxgl.sample.renderer.simple.native.x11}/Debug" id="cdt.managedbuild.target.gnu.builder.exe.debug.1951039919" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1982897758" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.695929246" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug">
 								<option id="gnu.cpp.compiler.exe.debug.option.optimization.level.1623855291" name="Optimization Level" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
@@ -84,7 +84,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.exe.release.247600745." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.exe.release.1467669955" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.exe.release">
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.release.1945063705" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.release"/>
-							<builder buildPath="${workspace_loc:/at.bestsolution.fxgl.sample.renderer.simple.native}/Release" id="cdt.managedbuild.target.gnu.builder.exe.release.896427820" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.exe.release"/>
+							<builder buildPath="${workspace_loc:/org.eclipse.efxclipse.fxgl.sample.renderer.simple.native.x11}/Release" id="cdt.managedbuild.target.gnu.builder.exe.release.896427820" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.exe.release"/>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1206037599" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release.1333943762" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release">
 								<option id="gnu.cpp.compiler.exe.release.option.optimization.level.1343967200" name="Optimization Level" superClass="gnu.cpp.compiler.exe.release.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
@@ -114,7 +114,7 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="at.bestsolution.fxgl.sample.renderer.simple.native.cdt.managedbuild.target.gnu.exe.398997388" name="Executable" projectType="cdt.managedbuild.target.gnu.exe"/>
+		<project id="org.eclipse.efxclipse.fxgl.sample.renderer.simple.native.x11.cdt.managedbuild.target.gnu.exe.398997388" name="Executable" projectType="cdt.managedbuild.target.gnu.exe"/>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
@@ -134,10 +134,10 @@
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="/at.bestsolution.fxgl.sample.renderer.simple.native"/>
+			<resource resourceType="PROJECT" workspacePath="/org.eclipse.efxclipse.fxgl.sample.renderer.simple.native.x11"/>
 		</configuration>
 		<configuration configurationName="Release">
-			<resource resourceType="PROJECT" workspacePath="/at.bestsolution.fxgl.sample.renderer.simple.native"/>
+			<resource resourceType="PROJECT" workspacePath="/org.eclipse.efxclipse.fxgl.sample.renderer.simple.native.x11"/>
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
