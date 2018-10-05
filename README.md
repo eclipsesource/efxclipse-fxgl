@@ -6,17 +6,17 @@
 
 Every java project has a corresponding native code project in `native/${project}.native`. Those projects are at the moment managed cdt projects. Their build output is a shared object which is copied into the native folder of the corresponding java project.
 
-* **at.bestsolution.fxgl**  
+* **org.eclipse.efxclipse.fxgl**  
   This is the main bundle. It contains the javafx GLSurface Node.
-* **at.bestsolution.fxgl.glcommon**  
+* **org.eclipse.efxclipse.fxgl.sample.glcommon**  
  Contains some native helpers for the sample
-* **at.bestsolution.fxgl.sample.renderer**  
+* **org.eclipse.efxclipse.fxgl.sample.renderer**  
  Basic sample renderer infrastructure
-* **at.bestsolution.fxgl.sample.renderer.objrenderer**  
+* **org.eclipse.efxclipse.fxgl.sample.renderer.objrenderer**  
  A simple OBJ Renderer implementation
-* **at.bestsolution.fxgl.sample.renderer.simple**  
+* **org.eclipse.efxclipse.fxgl.sample.renderer.simple**  
  A very simple colored triangle renderer
-* **at.bestsolution.fxgl.sample.application**  
+* **org.eclipse.efxclipse.fxgl.sample.application**  
  The javafx examples
 
 ### Requirements
@@ -50,7 +50,7 @@ The samples also extract their resources (shaders, images, obj..) there.
 
 #### Java Side
 
-Create a JavaFX Application and add the **at.bestsolution.fxgl** bridge jar to the project.
+Create a JavaFX Application and add the **org.eclipse.efxclipse.fxgl** bridge jar to the project.
 Then you can add a `GLSurface` node to your scene graph.
 
 Also you need to create an JNI entry point to start your own native part.
