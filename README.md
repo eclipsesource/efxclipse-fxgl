@@ -19,9 +19,9 @@ Every java project has a corresponding native code project in `native/${project}
 * **org.eclipse.efxclipse.fxgl.sample.application**  
  The javafx examples
 
-### Requirements
+### General Requirements
 
-Oracle Java 8 JDK
+Oracle Java 8 JDK (this is a strict requirement, only Java 8 will work!)
 
 
 ### Sample Requirements
