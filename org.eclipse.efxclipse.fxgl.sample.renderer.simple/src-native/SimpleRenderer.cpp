@@ -49,13 +49,12 @@ SimpleRenderer::~SimpleRenderer() {
 
 }
 
-void SimpleRenderer::RenderFrame(int width, int height) {
-
+void SimpleRenderer::RenderFrame(unsigned int textureId, int width, int height) {
+	gl->SetCurrent();
 	angle += 0.1;
 
-	Texture target = renderTarget->GetNextTexture();
 	glBindFramebuffer(GL_FRAMEBUFFER, textureFramebuffer);
-	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, target.textureId, 0);
+	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, textureId, 0);
 
 	glViewport(0, 0, width, height);
 

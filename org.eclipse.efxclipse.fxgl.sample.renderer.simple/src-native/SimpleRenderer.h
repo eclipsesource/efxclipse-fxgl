@@ -44,7 +44,7 @@ public:
 
 
 protected:
-	virtual void RenderFrame(int width, int height);
+	virtual void RenderFrame(unsigned int textureId, int width, int height);
 	virtual bool InitializeResources();
 	virtual void DisposeResources();
 
