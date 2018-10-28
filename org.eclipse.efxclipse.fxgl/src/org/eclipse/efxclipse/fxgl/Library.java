@@ -17,6 +17,8 @@ package org.eclipse.efxclipse.fxgl;
 
 import java.net.URL;
 
+import org.eclipse.efxclipse.fxgl.internal.GLSurfaceAPI;
+
 // TODO moveme
 public class Library {
 
@@ -30,4 +32,11 @@ public class Library {
 		NativeHelper.loadLibrary(LIB());
 	}
 	
+	public static void main(String[] args) {
+		System.err.println("url = " + System.mapLibraryName(NAME));
+		System.err.println("url = " + LIB());
+		GLSurfaceAPI.nInitialize();
+		//Object x = GLSurfaceAPI.class;
+	}
 }
+

@@ -28,5 +28,20 @@ public class Library {
 	
 	public static void require() {
 		NativeHelper.loadLibrary(LIB());
+		
+//		try {
+//			Class<?> cls = Class.forName("org.eclipse.efxclipse.fxgl.sample.glcommon.cocoa.NSOpenGLContextBridge");
+//			if (cls != null) {
+//				cls.getDeclaredMethod("Initialize").invoke(null);
+//			}
+//		}
+//		catch (Exception e) {
+//			e.printStackTrace();
+//		}
+	}
+	
+	public static void main(String[] args) {
+		require();
+		System.err.println("yehaa");
 	}
 }

@@ -31,7 +31,7 @@ public class GLSurfaceAPI {
 		public float deltaY;
 	}
 	
-	private static native long nInitialize();
+	public static native long nInitialize();
 	
 	private static native long nCreateGLSurface(GLSurface surface);
 	private static native long nDisposeGLSurface(long surfaceId);

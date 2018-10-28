@@ -60,6 +60,7 @@ public class ES2Util {
 		Object glContext = glContextGetter.invoke(es2Context);
 		
 		Method nativeHandleGetter = glContext.getClass().getDeclaredMethod("getNativeHandle");
+		//Method nativeHandleGetter = glContext.getClass().getDeclaredMethod("getNativeCtxInfo");
 		nativeHandleGetter.setAccessible(true);
 		long nativeHandle = (long) nativeHandleGetter.invoke(glContext);
 		

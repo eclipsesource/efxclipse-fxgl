@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="org.eclipse.cdt.core.default.config.1735743198">
+			<storageModule buildSystemId="org.eclipse.cdt.core.defaultConfigDataProvider" id="org.eclipse.cdt.core.default.config.1735743198" moduleId="org.eclipse.cdt.core.settings" name="Configuration">
+				<externalSettings/>
+				<extensions/>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.pathentry">
+		<pathentry include="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include" kind="inc" path="" system="true"/>
+		<pathentry include="/Library/Developer/CommandLineTools/usr/include" kind="inc" path="" system="true"/>
+		<pathentry include="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include" kind="inc" path="" system="true"/>
+		<pathentry include="/Library/Developer/CommandLineTools/usr/include/c++/v1" kind="inc" path="" system="true"/>
+		<pathentry base-path="JNIHeader" include="" kind="inc" path="" system="true"/>
+		<pathentry base-path="MacOSFrameworks" include="" kind="inc" path="" system="true"/>
+		<pathentry kind="mac" name="_LIBCPP_COMPILER_CLANG" path="" value="1"/>
+		<pathentry kind="src" path=""/>
+		<pathentry kind="out" path="build"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+</cproject>
