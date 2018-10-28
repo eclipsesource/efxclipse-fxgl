@@ -17,8 +17,11 @@ MAKEFILE_DIR = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 PROJECT_DIR = $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 SOURCE_DIR = $(PROJECT_DIR)src-native/
 NATIVE_DIR = $(PROJECT_DIR)native/
+OBJECT_DIR = $(PROJECT_DIR)build/obj/
 
-OBJS = GLSurface.o GLSurfaceAPI.o GLContext.o
+include $(PROJECT_DIR)functions.mk
+
+OBJS = $(call find_objs,cpp,$(SOURCE_DIR))
 
 INCLUDE_PATH += -I"$(PROJECT_DIR)../JNIHeader"
 
@@ -26,49 +29,28 @@ INCLUDES = $(INCLUDE_PATH)
 
 CXXFLAGS += -std=c++11 -fPIC
 
-ifeq ($(BUILD_MODE),debug)
-	CFLAGS += -g
-else ifeq ($(BUILD_MODE),run)
-	CFLAGS += -O2
-else
-	$(error Build mode $(BUILD_MODE) not supported by this Makefile)
-endif
 
-
-OS := $(shell uname)
 ifeq ($(OS),Darwin)
-	include $(SOURCE_DIR)/cgl/Makefile
+	OBJS += $(call find_objs,cpp,$(SOURCE_DIR)cgl/)
+	OBJS += $(call find_objs,m,$(SOURCE_DIR)cgl/)
+	
+	LIBS := -framework OpenGL
+	LIBS += -framework Cocoa
+	LIBS += -framework IOSurface
+	LIBS += -framework CoreFoundation
+	LIBS += -lobjc
+
+	vpath %.cpp $(SOURCE_DIR)cgl/
+	vpath %.m $(SOURCE_DIR)cgl/
+	
 endif
 ifeq ($(OS),Linux)
-	include $(SOURCE_DIR)/x11/Makefile
+	
 endif
 
 
+ARTIFACT := libfxgl.$(EXT)
 
-COPY_FILES = $(NATIVE_DIR)libfxgl.dylib $(NATIVE_DIR)libfxgl.so
+vpath %.cpp $(SOURCE_DIR)
 
-all:	libfxgl.dylib libfxgl.so $(COPY_FILES)
-
-libfxgl.so:	$(OBJS)
-	$(CXX) -Wl,-rpath,\$$ORIGIN -shared $(LIBS) -o $@ $^
-	
-libfxgl.dylib:	$(OBJS)
-	$(CXX)  -Wl,-rpath,\$$ORIGIN -shared $(LIBS) -o $@ $^
-
-%.o:	$(SOURCE_DIR)%.cpp
-	$(CXX) -c $(CFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(INCLUDE_PATH) -o $@ $<
-
-
-
-
-$(NATIVE_DIR)libfxgl.dylib: libfxgl.dylib
-$(NATIVE_DIR)libfxgl.so: libfxgl.so
-
-$(NATIVE_DIR)%:
-	cp $< $@
-
-
-clean:
-	rm -fr libfxgl.dylib libfxgl.so $(OBJS)
-
-.PHONY: all clean
+include $(PROJECT_DIR)rules.mk

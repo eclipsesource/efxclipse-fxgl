@@ -17,82 +17,44 @@ PROJECT_DIR = $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 SOURCE_DIR = $(PROJECT_DIR)src-native/
 NATIVE_DIR = $(PROJECT_DIR)native/
 
+FXGL_DIR = $(PROJECT_DIR)../org.eclipse.efxclipse.fxgl/
+RENDERER_DIR = $(PROJECT_DIR)../org.eclipse.efxclipse.fxgl.sample.renderer/
+
+include $(FXGL_DIR)functions.mk
+
 CXXFLAGS += -std=c++11 -fPIC
 
-FXGL_LIB_DIR = $(PROJECT_DIR)../org.eclipse.efxclipse.fxgl/native/
-FXGL_INCLUDE_DIR = $(PROJECT_DIR)../org.eclipse.efxclipse.fxgl/src-native/
+FXGL_LIB_DIR = $(FXGL_DIR)native/
+FXGL_INCLUDE_DIR = $(FXGL_DIR)src-native/
 
 JNI_INCLUDE_DIR = $(PROJECT_DIR)../JNIHeader/
 
-GLCOMMON_LIB_DIR = $(PROJECT_DIR)../org.eclipse.efxclipse.fxgl.sample.glcommon/native/
-GLCOMMON_INCLUDE_DIR = $(PROJECT_DIR)../org.eclipse.efxclipse.fxgl.sample.glcommon/src-native/
-
-RENDERER_LIB_DIR = $(PROJECT_DIR)../org.eclipse.efxclipse.fxgl.sample.renderer/native/
-RENDERER_INCLUDE_DIR = $(PROJECT_DIR)../org.eclipse.efxclipse.fxgl.sample.renderer/src-native/
+RENDERER_LIB_DIR = $(RENDERER_DIR)native/
+RENDERER_INCLUDE_DIR = $(RENDERER_DIR)src-native/
 
 INCLUDES += -I"$(FXGL_INCLUDE_DIR)"
 INCLUDES += -I"$(JNI_INCLUDE_DIR)"
-INCLUDES += -I"$(GLCOMMON_INCLUDE_DIR)"
 INCLUDES += -I"$(RENDERER_INCLUDE_DIR)"
 
 
-LIBS := -lfxgl -L"$(FXGL_LIB_DIR)"
-LIBS += -lfxgl_sample_glcommon -L"$(GLCOMMON_LIB_DIR)"
-LIBS += -lfxgl_sample_renderer -L"$(RENDERER_LIB_DIR)"
+LIBS := -lfxgl
+LIBS += -lfxgl_sample_renderer
+LDIR += -L"$(FXGL_LIB_DIR)"
+LDIR += -L"$(RENDERER_LIB_DIR)"
 
-OS := $(shell uname)
 ifeq ($(OS),Darwin)
 	LIBS += -framework OpenGL
-	EXT := dylib
 endif
 ifeq ($(OS),Linux)
 	LIBS += -lGLEW -lGL
-	EXT := so
 endif
 
 OBJS = ObjRenderer.o obj.o
 
 ARTIFACT = libfxgl_sample_renderer_objrenderer.$(EXT)
 
-ifeq ($(BUILD_MODE),debug)
-	CFLAGS += -g
-else ifeq ($(BUILD_MODE),run)
-	CFLAGS += -O2
-else
-	$(error Build mode $(BUILD_MODE) not supported by this Makefile)
-endif
-
-COPY_FILES = $(NATIVE_DIR)$(ARTIFACT)
-
-all:	$(ARTIFACT) $(COPY_FILES)
-
-$(NATIVE_DIR)%:
-	cp $< $@
-
-%.so:		$(OBJS)
-	@echo '[Linking] $@'
-	$(CXX) $(LIBS) -shared -o $@ $^
-	@echo ' '
-%.dylib:	$(OBJS)
-	@echo '[Linking] $@'
-	$(CXX) $(LIBS) -shared -o $@ $^
-	@echo ' '
-
-%.o:	$(SOURCE_DIR)%.cpp
-	@echo '[Compile] $@'
-	$(CXX) -c $(CFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(INCLUDES) -o $@ $<
-	@echo ' '
-	
-%.o:	$(SOURCE_DIR)obj-master/%.c
-	@echo '[Compile] $@'
-	$(CXX) -c $(CFLAGS) $(CXXFLAGS) $(INCLUDES) -o $@ $<
-	@echo ' '
+vpath %.cpp $(SOURCE_DIR)
+vpath %.c $(SOURCE_DIR)obj-master/
 
 
-$(NATIVE_DIR)$(ARTIFACT): $(ARTIFACT)
-
-clean:
-	rm -fr $(ARTIFACT) $(OBJS)
-
-
-.PHONY: clean all
+include $(FXGL_DIR)rules.mk

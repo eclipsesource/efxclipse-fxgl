@@ -14,13 +14,16 @@
 #  SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 #
 PROJECT_DIR = $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
+FXGL_DIR = $(PROJECT_DIR)../org.eclipse.efxclipse.fxgl/
 SOURCE_DIR = $(PROJECT_DIR)src-native/
 NATIVE_DIR = $(PROJECT_DIR)native/
 
+include $(FXGL_DIR)functions.mk
+
 CXXFLAGS += -std=c++11 -fPIC
 
-FXGL_LIB_DIR = $(PROJECT_DIR)../org.eclipse.efxclipse.fxgl/native/
-FXGL_INCLUDE_DIR = $(PROJECT_DIR)../org.eclipse.efxclipse.fxgl/src-native/
+FXGL_LIB_DIR = $(FXGL_DIR)native/
+FXGL_INCLUDE_DIR = $(FXGL_DIR)src-native/
 
 JNI_INCLUDE_DIR = $(PROJECT_DIR)../JNIHeader/
 
@@ -31,47 +34,11 @@ CXXFLAGS += -std=c++11
 
 LIBS := -lfxgl -L"$(FXGL_LIB_DIR)"
 
-OBJS = Renderer.o RendererAPI.o
-
-ifeq ($(BUILD_MODE),debug)
-	CFLAGS += -g
-else ifeq ($(BUILD_MODE),run)
-	CFLAGS += -O2
-else
-	$(error Build mode $(BUILD_MODE) not supported by this Makefile)
-endif
-
-COPY_FILES = $(NATIVE_DIR)libfxgl_sample_renderer.dylib $(NATIVE_DIR)libfxgl_sample_renderer.so
-$(info $(COPY_FILES))
-
-all:	libfxgl_sample_renderer.dylib libfxgl_sample_renderer.so $(COPY_FILES)
-
-$(NATIVE_DIR)%:
-	cp $< $@
-
-%.so:		$(OBJS)
-	@echo '[Linking] $@'
-	$(CXX) $(LIBS) -shared -o $@ $^
-	@echo ' '
-%.dylib:	$(OBJS)
-	@echo '[Linking] $@'
-	$(CXX) $(LIBS) -shared -o $@ $^
-	@echo ' '
-
-%.o:	$(SOURCE_DIR)%.cpp
-	@echo '[Compile] $@'
-	$(CXX) -c $(CFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(INCLUDES) -o $@ $<
-	@echo ' '
+OBJS = $(call find_objs,cpp,$(SOURCE_DIR))
 
 
-$(NATIVE_DIR)libfxgl_sample_renderer.dylib: libfxgl_sample_renderer.dylib
-$(NATIVE_DIR)libfxgl_sample_renderer.so: libfxgl_sample_renderer.so
+vpath %.cpp $(SOURCE_DIR)
 
+ARTIFACT := libfxgl_sample_renderer.$(EXT)
 
-
-
-clean:
-	rm -fr libfxgl_sample_renderer.dylib libfxgl_sample_renderer.so $(OBJS)
-
-
-.PHONY: clean all
+include $(FXGL_DIR)rules.mk
