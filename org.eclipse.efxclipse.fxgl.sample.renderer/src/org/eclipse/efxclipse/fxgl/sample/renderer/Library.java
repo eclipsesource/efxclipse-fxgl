@@ -29,7 +29,6 @@ public class Library {
 	
 	public static void require() {
 		org.eclipse.efxclipse.fxgl.Library.require();
-		org.eclipse.efxclipse.fxgl.sample.glcommon.Library.require();
 		NativeHelper.loadLibrary(LIB());
 	}
 	

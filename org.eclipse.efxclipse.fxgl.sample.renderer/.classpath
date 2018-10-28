@@ -4,6 +4,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="native"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.efxclipse.fxgl"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.efxclipse.fxgl.sample.glcommon"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
