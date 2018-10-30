@@ -1,5 +1,121 @@
 # fxgl readme
 
+## Mac Version
+
+MacOS does not allow OpenGL context sharing with differen OpenGL version (observed behavior). This means it is
+not possible to create a shared `OpenGL Core 3.2` context with the JavaFX `OpenGL 2.1` context. To get around this
+limitation a new `OpenGL Core 3.2` context was created and texture sharing was implemented with `IOSurface`.  
+To implement this OpenGL context creation/management was moved into the bridge API.
+
+### Project Structure
+
+Compared to the linux prototype the native code has been merged into the corresponding java projects. Also Makefile's were added to build the native parts.
+
+* **JNIHeader**
+  Contains the java jni header files.
+* **MacOSFrameworks**
+  Contains a symlink structure to provide the macos framework headers to CDT.
+* **org.eclipse.efxclipse.fxgl**  
+  This is the main bundle. It contains the javafx GLSurface Node.
+* **org.eclipse.efxclipse.fxgl.sample.renderer**  
+ Basic sample renderer infrastructure
+* **org.eclipse.efxclipse.fxgl.sample.renderer.objrenderer**  
+ A simple OBJ Renderer implementation
+* **org.eclipse.efxclipse.fxgl.sample.renderer.simple**  
+ A very simple colored triangle renderer
+* **org.eclipse.efxclipse.fxgl.sample.application**  
+ The javafx examples
+
+### General Requirements
+
+Oracle Java 8 JDK (this is a strict requirement, only Java 8 will work!)
+
+### Sample Requirements
+
+The sample uses some basic macos frameworks which should be present on any recent macos.
+( OpenGL, Cocoa, IOSurface )
+
+
+### Java Native Library behavior
+
+For now the java code extracts the native libs it bundles into the current working directory to allow them to link together.  
+The samples also extract their resources (shaders, images, obj..) there.  
+
+### Known Limitations / issues
+
+ * There is some kind of objective-c garbage collection issue which causes the application to crash whenever a thread
+ is stopped (This happens in the samples when you press the stop button)
+ 
+### Basic Usage
+
+#### Java Side
+
+Create a JavaFX Application and add the **org.eclipse.efxclipse.fxgl** bridge jar to the project.
+Then you can add a `GLSurface` node to your scene graph.
+
+Also you need to create an JNI entry point to start your own native part.
+Here you need to pass the surfaceId of your surface to the native world.
+
+You can obtain it by calling `GLSurface#getSurfaceId()`.
+
+for example a simple class like
+```java
+package somewhere;
+
+public class NativeLauncher {
+    public static native startNativeSuff(long surfaceId);
+}
+```
+
+
+#### Native Side
+
+here you need the corresponding JNI function, where you can obtain the native `GLSurface` API object.
+
+```c++
+extern "C" JNIEXPORT void JNICALL Java_somewhere_NativeLauncher_startNativeSuff(JNIEnv *env, jclass cls, jlong surfaceId)
+{
+    GLSurface* mySurface = GLSurface::GetSurface((long) surfaceId);
+}
+```
+
+With this you are ready to go:
+
+
+```c++
+    GLSurface* mySurface = GLSurface::GetSurface((long) surfaceId);
+    
+    // launch your own render infrastructure or just a simple render thread
+    
+    // First obtain the sharedContextHandle
+    long openGLContextHandle = mySurface->GetContextHandle();
+    
+    // CHANGE: do not create your own context; get it from the surface
+    GLContext *context = mySurface->CreateContext();
+    
+    // now for rendering you can obtain a surface texture by calling
+    Texture nextTexture = mySurface->GetNextTexture();
+    
+    // set nextTexture.textureId as color attachment of your rendertarget
+    // if you need a depth buffer ensure that it has the right size by
+    //  checking nextTexture.width and nextTexture.height; maybe recreate it
+    
+    // render your frame
+    
+    // call SwapTexture
+    mySurface->SwapTexture();
+    
+    
+    // before you render thread terminates you should detach it from the jvm
+    // (most of the GLSurface methods autmatically attach your thread to the
+    //  jvm, but you can also manually do this by calling AttachThread())
+    GLSurface::ReleaseThread();
+    
+
+```
+
+
+
 ## Linux Version
 
 ### Project Structure
