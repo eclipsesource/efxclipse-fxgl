@@ -35,7 +35,7 @@ CGLGLContext::CGLGLContext(void *sharedHandle) {
 			//kCGLPFAPBuffer,
 			kCGLPFAAccelerated,
 			kCGLPFAOpenGLProfile,
-			(CGLPixelFormatAttribute) kCGLOGLPVersion_3_2_Core,
+			(CGLPixelFormatAttribute) kCGLOGLPVersion_GL4_Core,
 			(CGLPixelFormatAttribute) 0
 		};
 		GLint num;
