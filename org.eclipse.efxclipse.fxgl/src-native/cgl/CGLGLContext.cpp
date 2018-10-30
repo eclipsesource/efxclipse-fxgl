@@ -66,6 +66,7 @@ void CGLGLContext::CheckGLError(const char* msg) {
 }
 
 CGLGLContext::~CGLGLContext() {
+	cerr << "CGLGLContext Destructor" << endl;
 	checkErr(CGLDestroyContext( contextObj ), "CGLDestroyContext");
 }
 

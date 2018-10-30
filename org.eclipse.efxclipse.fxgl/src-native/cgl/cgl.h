@@ -3,12 +3,14 @@
 
 #define GL_SILENCE_DEPRECATION
 #include <OpenGL/CGLTypes.h>
+#include <IOSurface/IOSurface.h>
 #include <string>
 
 
 void checkErr(CGLError cglError, std::string msg);
 
 extern "C" void *getCGLContextObj(void *nsJContext);
-extern "C" void *createIOSurface(int width, int height);
+extern "C" IOSurfaceRef createIOSurface(int width, int height);
+extern "C" void releaseIOSurface(IOSurfaceRef ioSurface);
 
 #endif

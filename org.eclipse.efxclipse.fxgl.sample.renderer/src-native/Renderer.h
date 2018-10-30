@@ -61,7 +61,7 @@ protected:
 
 private:
 
-	bool running;
+	std::atomic<bool> running;
 	std::thread* thread;
 	void Run();
 

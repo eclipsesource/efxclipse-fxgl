@@ -59,7 +59,7 @@ void InternalGLSurface::Initialize(JavaVM* javaVM) {
 		JNIEnv* env = GLSurface::GetJavaEnv();
 
 		GLSurface::TextureCls = new JTextureCls();
-		cerr << "got env 1 " << env << endl << flush;
+		//cerr << "got env 1 " << env << endl << flush;
 		jclass cls =  env->FindClass("org/eclipse/efxclipse/fxgl/es2/GLSurface$Texture");
 		GLSurface::TextureCls->textureId = env->GetFieldID(cls, "textureId", "J");
 		GLSurface::TextureCls->width = env->GetFieldID(cls, "width", "I");
@@ -67,7 +67,7 @@ void InternalGLSurface::Initialize(JavaVM* javaVM) {
 	}
 	if (GLSurface::GLSurfaceCls == NULL) {
 		JNIEnv* env = GLSurface::GetJavaEnv();
-		cerr << "got env " << env << endl << flush;
+		//cerr << "got env " << env << endl << flush;
 		GLSurface::GLSurfaceCls = new JGLSurfaceCls();
 		jclass cls = env->FindClass("org/eclipse/efxclipse/fxgl/es2/GLSurface");
 		GLSurface::GLSurfaceCls->GetContextHandle = env->GetMethodID(cls, "getContextHandle", "()J");
@@ -145,6 +145,7 @@ JNIEnv* GLSurface::GetJavaEnv() {
 	if (!IsThreadAttached()) {
 		AttachThread();
 	}
+	//cerr << "GetJavaEnv for threadId: " << this_thread::get_id() << " = " << javaEnv << endl;
 	return javaEnv;
 }
 
@@ -178,6 +179,7 @@ void GLSurface::AttachThread() {
 			jint attachResult = javaVM->AttachCurrentThreadAsDaemon((void **) &javaEnv, &args);
 			if (JNI_OK == attachResult) {
 				cerr << " successfully attached thread to java" << endl;
+				cerr << " > threadId: " << this_thread::get_id() << endl;
 			}
 			else {
 				cerr << " fatality! could not attach thread to java!" << endl << flush;
@@ -189,6 +191,8 @@ void GLSurface::AttachThread() {
 void GLSurface::ReleaseThread() {
 	if (JNI_OK == javaVM->DetachCurrentThread()) {
 		javaEnv = NULL;
+		cerr << " sucessfully detached thread from java" << endl;
+		cerr << " > thread: " << this_thread::get_id() << endl;
 	}
 	else {
 		cerr << "Error detaching thread!" << endl;

@@ -31,65 +31,6 @@ using namespace std;
 __FXGL_NAMESPACE_USING
 using namespace cgl;
 
-IOSurfaceRef CreateSurface(int width, int height) {
-	CFNumberRef vWidth = CFNumberCreate(
-				(CFAllocatorRef) NULL,
-				kCFNumberIntType,
-				&width
-				);
-	CFNumberRef vHeight = CFNumberCreate(
-				(CFAllocatorRef) NULL,
-				kCFNumberIntType,
-				&height
-				);
-
-		int bytesPerElement = 4;
-		CFNumberRef vBytesPerElement = CFNumberCreate(
-				(CFAllocatorRef) NULL,
-				kCFNumberIntType,
-				&bytesPerElement
-				);
-
-		int allocSize = sizeof(int) * width * height;
-		CFNumberRef vAllocSize = CFNumberCreate(
-				(CFAllocatorRef) NULL,
-				kCFNumberIntType,
-				&allocSize
-				);
-
-		CFStringRef keys[ 3 ];
-		keys[0] = kIOSurfaceWidth;
-		keys[1] = kIOSurfaceHeight;
-		keys[2] = kIOSurfaceBytesPerElement;
-		//keys[3] = kIOSurfaceAllocSize;
-		CFNumberRef values [ 3 ];
-		values[0] = vWidth;
-		values[1] = vHeight;
-		values[2] = vBytesPerElement;
-		//values[3] = vAllocSize;
-
-		CFDictionaryRef dict = CFDictionaryCreate(
-				(CFAllocatorRef) NULL,
-				( const void** ) keys,
-				( const void** ) values,
-				2,
-				&kCFTypeDictionaryKeyCallBacks,
-				&kCFTypeDictionaryValueCallBacks
-		);
-
-		CFRelease( vWidth );
-		CFRelease( vHeight );
-		CFRelease( vBytesPerElement );
-		CFRelease( vAllocSize );
-
-
-		IOSurfaceRef ioSurface = IOSurfaceCreate(dict);
-
-		CFRelease( dict );
-
-		return ioSurface;
-}
-
 CGLGLSurface::CGLGLSurface(jobject obj) : GLSurface(obj) {
 
 	void* nsContextHandle = (void*) GetContextHandle();
@@ -126,6 +67,10 @@ CGLGLSurface::CGLGLSurface(jobject obj) : GLSurface(obj) {
 }
 
 CGLGLSurface::~CGLGLSurface() {
+	cerr << "CGLGLSurface Destructor" << endl;
+	if (ioSurface != NULL) {
+		releaseIOSurface(ioSurface);
+	}
 
 	delete outerContext;
 	delete sharedContext;
@@ -146,9 +91,9 @@ Texture CGLGLSurface::GetNextTexture() {
 
 	if (ioSurfaceWidth != t.width || ioSurfaceHeight != t.height) {
 		if (ioSurface != NULL) {
-			CFRelease( IOSurfaceRef( ioSurface ) );
+			releaseIOSurface(ioSurface);
 		}
-		ioSurface = (IOSurfaceRef) createIOSurface(t.width, t.height);
+		ioSurface = createIOSurface(t.width, t.height);
 
 		ioSurfaceWidth = t.width;
 		ioSurfaceHeight = t.height;

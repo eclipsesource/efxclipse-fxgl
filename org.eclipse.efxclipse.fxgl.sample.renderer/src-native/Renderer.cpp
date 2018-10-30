@@ -85,11 +85,11 @@ void Renderer::Start() {
 }
 
 void Renderer::Stop() {
-	if (running) {
+	if (running.load()) {
 		cout << "Stopping native render thread" << endl;
 		running = false;
 		cout << " waiting for thread to terminate.." << endl;
-		thread->join();
+		//thread->join();
 		cout << " thread ended" << endl;
 		thread = NULL;
 	}
@@ -109,7 +109,7 @@ void Renderer::Run() {
 
 
 		cout << "Starting render loop" << endl;
-		while (running) {
+		while (running.load()) {
 
 			microseconds frameBegin = duration_cast<microseconds>( system_clock::now().time_since_epoch() );
 
@@ -147,8 +147,10 @@ void Renderer::Run() {
 		}
 		cout << "Render loop terminated" << endl;
 
+		cout << "Disposing Renderer resources" << endl;
 		DisposeResources();
 
+		cout << "Releasing JVM Thread" << endl;
 		renderTarget->ReleaseThread();
 	}
 

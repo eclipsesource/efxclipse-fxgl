@@ -2,16 +2,21 @@
 
 #import <Cocoa/Cocoa.h>
 #import <OpenGL/OpenGL.h>
+#import <IOSurface/IOSurface.h>
 
-void *createIOSurface(int width, int height) {
+IOSurfaceRef createIOSurface(int width, int height) {
 	NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
 					  [NSNumber numberWithInt: width], kIOSurfaceWidth,
 					  [NSNumber numberWithInt: height], kIOSurfaceHeight,
 					  [NSNumber numberWithInt:4], kIOSurfaceBytesPerElement,
 					  nil];
-	void *ioSurface = IOSurfaceCreate((CFDictionaryRef)dict);
+	IOSurfaceRef ioSurface = IOSurfaceCreate((CFDictionaryRef)dict);
 	CFRelease(dict);
 	return ioSurface;
+}
+
+void releaseIOSurface(IOSurfaceRef ioSurface) {
+	CFRelease(ioSurface);
 }
 
 void *getCGLContextObj(void *nsJContext) {
